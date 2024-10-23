@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from cryptography.fernet import Fernet
+
 import os
 
 app = Flask(__name__)
@@ -32,7 +33,8 @@ with app.app_context():
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        password = generate_password_hash(request.form['password'], method='sha256')
+        # Изменяем метод хеширования на 'pbkdf2:sha256'
+        password = generate_password_hash(request.form['password'], method='pbkdf2:sha256')
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
@@ -123,6 +125,9 @@ def decrypt_file(post_id):
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

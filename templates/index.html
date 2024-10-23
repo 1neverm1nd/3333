@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+</head>
+<body>
+    <h1>Добро пожаловать на наш сайт!</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+            <li><a href="{{ url_for('login') }}">Вход</a></li>
+            <li><a href="{{ url_for('upload_file') }}">Загрузить и зашифровать файл</a></li>
+            <li><a href="{{ url_for('posts') }}">Просмотр постов</a></li>
+            <li><a href="{{ url_for('logout') }}">Выход</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
